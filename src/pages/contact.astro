@@ -1,0 +1,274 @@
+---
+import Base from '@/layouts/Base.astro';
+import { site } from '@/data/site';
+---
+
+<Base title="Contact" description={`Get in touch with ${site.name}`}>
+  <div class="contact-page container">
+
+    <header class="page-header reveal">
+      <p class="section-label">Contact</p>
+      <h1 class="page-title">Let's talk.</h1>
+    </header>
+
+    <div class="contact-layout">
+      <!-- Primary contact -->
+      <div class="contact-main reveal">
+        <p class="contact-intro">
+          The best way to reach me is by email. I try to respond within a day or two.
+          For longer conversations, I'm also easy to find on LinkedIn.
+        </p>
+
+        <a href={`mailto:${site.email}`} class="email-link">
+          {site.email}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17 17 7"/><path d="M7 7h10v10"/>
+          </svg>
+        </a>
+
+        <div class="social-links">
+          {site.social.github && (
+            <a href={site.social.github} class="social-link" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+          )}
+          {site.social.linkedin && (
+            <a href={site.social.linkedin} class="social-link" target="_blank" rel="noopener noreferrer">
+              LinkedIn
+            </a>
+          )}
+          {site.social.twitter && (
+            <a href={site.social.twitter} class="social-link" target="_blank" rel="noopener noreferrer">
+              Twitter
+            </a>
+          )}
+          {site.social.dribbble && (
+            <a href={site.social.dribbble} class="social-link" target="_blank" rel="noopener noreferrer">
+              Dribbble
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Optional contact form -->
+      <!--
+        TO ENABLE: Sign up at formspree.io, create a form, and replace
+        YOUR_FORM_ID in the action URL below. Then uncomment this block.
+      -->
+      <div class="contact-form-wrap reveal">
+        <p class="section-label" style="margin-bottom: var(--sp-6);">Or send a message</p>
+        <form
+          class="contact-form"
+          action="https://formspree.io/f/YOUR_FORM_ID"
+          method="POST"
+          novalidate
+        >
+          <div class="form-group">
+            <label class="form-label" for="name">Name</label>
+            <input
+              class="form-input"
+              type="text"
+              id="name"
+              name="name"
+              autocomplete="name"
+              placeholder="Your name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input
+              class="form-input"
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea
+              class="form-input form-textarea"
+              id="message"
+              name="message"
+              placeholder="What's on your mind?"
+              rows="5"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">
+            Send message
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .contact-page {
+    padding-block: var(--sp-16) var(--sp-24);
+  }
+
+  /* ── Page header ──────────────────────────────────────────────── */
+  .page-header {
+    margin-bottom: var(--sp-16);
+    padding-bottom: var(--sp-12);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-title {
+    font-size: var(--text-5xl);
+    font-weight: var(--weight-light);
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-top: var(--sp-4);
+  }
+
+  /* ── Layout ───────────────────────────────────────────────────── */
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--sp-16);
+    align-items: start;
+  }
+
+  @media (min-width: 768px) {
+    .contact-layout {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-20);
+    }
+  }
+
+  /* ── Contact main ─────────────────────────────────────────────── */
+  .contact-intro {
+    font-size: var(--text-lg);
+    line-height: var(--leading-loose);
+    color: var(--text-muted);
+    max-width: 44ch;
+    margin-bottom: var(--sp-8);
+  }
+
+  .email-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-light);
+    letter-spacing: -0.01em;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--sp-2);
+    transition: color var(--ease-fast), border-color var(--ease-fast);
+    margin-bottom: var(--sp-8);
+  }
+
+  .email-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-4);
+  }
+
+  .social-link {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--text-muted);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    transition: color var(--ease-fast), border-color var(--ease-fast);
+  }
+
+  .social-link:hover {
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+
+  /* ── Form ─────────────────────────────────────────────────────── */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-5);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .form-label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--text);
+  }
+
+  .form-input {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--text);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.7em 0.9em;
+    width: 100%;
+    transition: border-color var(--ease-fast), background-color var(--ease-fast), box-shadow var(--ease-fast);
+    appearance: none;
+  }
+
+  .form-input::placeholder {
+    color: var(--text-faint);
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 140px;
+    line-height: var(--leading-normal);
+  }
+
+  .form-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    align-self: flex-start;
+    padding: 0.7em 1.5em;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--bg);
+    background: var(--text);
+    border: 1px solid var(--text);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color var(--ease-fast), border-color var(--ease-fast), gap var(--ease-fast);
+  }
+
+  .form-submit:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    gap: var(--sp-3);
+  }
+
+  .form-submit:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+</style>

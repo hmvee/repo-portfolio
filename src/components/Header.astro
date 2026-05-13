@@ -1,0 +1,125 @@
+---
+import { site } from '@/data/site';
+import ThemeToggle from './ThemeToggle.astro';
+import { u } from '@/utils/url';
+
+const pathname = Astro.url.pathname;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isActive = (href: string) =>
+  href === '/' ? pathname === `${base}/` || pathname === base : pathname.startsWith(`${base}${href}`);
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a href={u('/')} class="header__name" aria-label={`${site.name} — home`}>
+      {site.name}
+    </a>
+
+    <nav class="header__nav" aria-label="Primary navigation">
+      <ul class="header__nav-list">
+        {site.nav.map(({ label, href }) => (
+          <li>
+            <a
+              href={u(href)}
+              class:list={['header__nav-link', { 'is-active': isActive(href) }]}
+              aria-current={isActive(href) ? 'page' : undefined}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <ThemeToggle />
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--bg);
+    border-bottom: 1px solid var(--border);
+    transition: background-color var(--ease-base), border-color var(--ease-base);
+
+    /* Subtle glass effect — tasteful, not glassmorphism */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background-color: color-mix(in srgb, var(--bg) 92%, transparent);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    gap: var(--sp-6);
+  }
+
+  .header__name {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: var(--weight-normal);
+    letter-spacing: -0.01em;
+    color: var(--text);
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: color var(--ease-fast);
+  }
+
+  .header__name:hover {
+    color: var(--accent);
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .header__nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-1);
+  }
+
+  .header__nav-link {
+    display: block;
+    padding: var(--sp-2) var(--sp-3);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--text-muted);
+    border-radius: var(--radius-md);
+    transition: color var(--ease-fast), background-color var(--ease-fast);
+    white-space: nowrap;
+  }
+
+  .header__nav-link:hover,
+  .header__nav-link.is-active {
+    color: var(--text);
+    background-color: var(--bg-hover);
+  }
+
+  .header__nav-link.is-active {
+    color: var(--text);
+  }
+
+  /* Thin accent line under active link */
+  .header__nav-link.is-active::after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--accent);
+    border-radius: 1px;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 480px) {
+    .header__nav-link {
+      padding: var(--sp-2);
+      font-size: var(--text-xs);
+    }
+  }
+</style>

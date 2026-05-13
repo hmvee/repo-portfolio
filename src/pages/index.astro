@@ -1,0 +1,217 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import ProjectCard from '@/components/ProjectCard.astro';
+import { site } from '@/data/site';
+import { u } from '@/utils/url';
+
+const allProjects = await getCollection('projects');
+const featured = allProjects
+  .filter((p) => p.data.featured)
+  .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 3);
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <p class="hero__label section-label">Designer & Builder</p>
+        <h1 class="hero__name">{site.name}</h1>
+        <p class="hero__tagline">{site.tagline}</p>
+        <p class="hero__bio">{site.bio}</p>
+        <div class="hero__actions">
+          <a href={u('/projects')} class="btn btn--primary">View projects</a>
+          <a href={u('/contact')} class="btn btn--ghost">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section class="featured">
+    <div class="container">
+      <div class="featured__header reveal">
+        <p class="section-label">Selected work</p>
+        <a href={u('/projects')} class="featured__all-link">
+          All projects
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="featured__grid">
+        {featured.map((project, i) => (
+          <div class="reveal" style={`transition-delay: ${i * 80}ms`}>
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              type={project.data.type}
+              tech={project.data.tech}
+              year={project.data.year}
+              slug={project.slug}
+              url={project.data.url}
+              color={project.data.color}
+              colorText={project.data.colorText}
+              featured={true}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ── Hero ──────────────────────────────────────────────────────── */
+  .hero {
+    padding-block: clamp(4rem, 10vw, 8rem);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero__inner {
+    max-width: 780px;
+  }
+
+  .hero__label {
+    margin-bottom: var(--sp-6);
+  }
+
+  .hero__name {
+    font-family: var(--font-serif);
+    font-size: var(--text-5xl);
+    font-weight: var(--weight-light);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: var(--sp-4);
+
+    /* Staggered entrance */
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero__tagline {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-light);
+    font-style: italic;
+    color: var(--text-muted);
+    letter-spacing: -0.01em;
+    margin-bottom: var(--sp-6);
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero__bio {
+    font-size: var(--text-lg);
+    line-height: var(--leading-loose);
+    color: var(--text-muted);
+    max-width: 56ch;
+    margin-bottom: var(--sp-10);
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  /* ── Buttons ───────────────────────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    padding: 0.65em 1.4em;
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    transition: background-color var(--ease-fast), color var(--ease-fast), border-color var(--ease-fast), box-shadow var(--ease-fast);
+    white-space: nowrap;
+  }
+
+  .btn--primary {
+    background: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+  }
+
+  .btn--primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border-color: var(--border);
+  }
+
+  .btn--ghost:hover {
+    color: var(--text);
+    border-color: var(--border-strong);
+    background: var(--bg-hover);
+  }
+
+  /* ── Featured ──────────────────────────────────────────────────── */
+  .featured {
+    padding-block: var(--sp-20);
+  }
+
+  .featured__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--sp-8);
+    gap: var(--sp-4);
+  }
+
+  .featured__header .section-label {
+    margin-bottom: 0;
+  }
+
+  .featured__all-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-1);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--text-muted);
+    transition: color var(--ease-fast), gap var(--ease-fast);
+  }
+
+  .featured__all-link:hover {
+    color: var(--accent);
+    gap: var(--sp-2);
+  }
+
+  .featured__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+    gap: var(--sp-6);
+  }
+
+  /* ── Keyframes ─────────────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__name,
+    .hero__tagline,
+    .hero__bio,
+    .hero__actions {
+      animation: none;
+    }
+  }
+</style>

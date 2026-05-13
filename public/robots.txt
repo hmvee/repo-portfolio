@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hmvee.github.io/repo-portfolio/sitemap-index.xml
