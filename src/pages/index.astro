@@ -1,217 +1,455 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '@/layouts/Base.astro';
-import ProjectCard from '@/components/ProjectCard.astro';
 import { site } from '@/data/site';
-import { u } from '@/utils/url';
-
-const allProjects = await getCollection('projects');
-const featured = allProjects
-  .filter((p) => p.data.featured)
-  .sort((a, b) => b.data.year - a.data.year)
-  .slice(0, 3);
 ---
 
 <Base>
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container hero__inner">
-      <div class="hero__content">
-        <p class="hero__label section-label">Designer & Builder</p>
-        <h1 class="hero__name">{site.name}</h1>
-        <p class="hero__tagline">{site.tagline}</p>
-        <p class="hero__bio">{site.bio}</p>
-        <div class="hero__actions">
-          <a href={u('/projects')} class="btn btn--primary">View projects</a>
-          <a href={u('/contact')} class="btn btn--ghost">Get in touch</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Featured Projects -->
-  <section class="featured">
-    <div class="container">
-      <div class="featured__header reveal">
-        <p class="section-label">Selected work</p>
-        <a href={u('/projects')} class="featured__all-link">
-          All projects
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-          </svg>
+  <!-- ── HERO ─────────────────────────────────────────────────────────── -->
+  <section class="hero" id="hero">
+    <div class="container content">
+      <p class="hero__label">Outreach & Lead Generation</p>
+      <h1 class="hero__headline">
+        <span class="hero__accent">35%</span> response rate on podcast cold outreach — and the tracker to prove it.
+      </h1>
+      <p class="hero__sub">
+        I help authors, coaches, consultants, and speakers land podcast features and speaking
+        opportunities through researched outreach, consistent follow-up, and clear tracking —
+        so nothing falls through the cracks.
+      </p>
+      <div class="hero__actions">
+        <a href="#contact" class="btn-primary">
+          Work with me
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-      </div>
-
-      <div class="featured__grid">
-        {featured.map((project, i) => (
-          <div class="reveal" style={`transition-delay: ${i * 80}ms`}>
-            <ProjectCard
-              title={project.data.title}
-              description={project.data.description}
-              type={project.data.type}
-              tech={project.data.tech}
-              year={project.data.year}
-              slug={project.slug}
-              url={project.data.url}
-              color={project.data.color}
-              colorText={project.data.colorText}
-              featured={true}
-            />
-          </div>
-        ))}
+        <a href="#process" class="btn-secondary">See my process</a>
       </div>
     </div>
   </section>
+
+  <hr class="section-divider" />
+
+  <!-- ── ABOUT ─────────────────────────────────────────────────────────── -->
+  <section class="section" id="about">
+    <div class="container content">
+      <h2 class="section__heading">About</h2>
+      <p class="body-text">
+        I'm Hannah — an outreach and lead generation specialist who works with authors,
+        coaches, consultants, and speakers who need to get in front of the right audiences.
+        My background includes full-time LinkedIn research for a US recruitment company,
+        where I built prospect lists from thousands of profiles filtered by certification
+        and location.
+      </p>
+      <p class="body-text">
+        What I do best: I find the right people to contact, write outreach that doesn't
+        sound like a template, and follow up without dropping the ball. Everything lives
+        in a tracker so you always know where each conversation stands.
+      </p>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ── SERVICES ──────────────────────────────────────────────────────── -->
+  <section class="section" id="services">
+    <div class="container content">
+      <h2 class="section__heading">Services</h2>
+      <div class="services">
+
+        <div class="service">
+          <h3 class="service__title">Podcast & Speaking Outreach</h3>
+          <p class="service__desc">
+            I research relevant podcasts, conferences, and speaking opportunities, then handle
+            the pitch and follow-up. You get booked; I track everything.
+          </p>
+        </div>
+
+        <div class="service">
+          <h3 class="service__title">B2B Lead Generation</h3>
+          <p class="service__desc">
+            LinkedIn and Apollo prospect research filtered by your ideal client profile.
+            Verified contact info, organized by priority, ready for outreach.
+          </p>
+        </div>
+
+        <div class="service">
+          <h3 class="service__title">Cold Email Outreach & Follow-Up</h3>
+          <p class="service__desc">
+            Personalized first-touch emails plus a 3-step follow-up sequence. Most responses
+            come from follow-ups 2 and 3 — I make sure those actually get sent.
+          </p>
+        </div>
+
+        <div class="service">
+          <h3 class="service__title">Outreach Tracker Setup & Management</h3>
+          <p class="service__desc">
+            A clean Google Sheet or CRM setup that tracks status, responses, follow-up dates,
+            and bookings. You always know what's happening.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ── PROCESS ───────────────────────────────────────────────────────── -->
+  <section class="section" id="process">
+    <div class="container content">
+      <h2 class="section__heading">Process</h2>
+      <ol class="process">
+        <li class="process__step">
+          <span class="process__num">01</span>
+          <span class="process__text">Research the right prospects or opportunities</span>
+        </li>
+        <li class="process__step">
+          <span class="process__num">02</span>
+          <span class="process__text">Find and verify contact information</span>
+        </li>
+        <li class="process__step">
+          <span class="process__num">03</span>
+          <span class="process__text">Build a clean outreach tracker</span>
+        </li>
+        <li class="process__step">
+          <span class="process__num">04</span>
+          <span class="process__text">Send personalized outreach and follow-ups</span>
+        </li>
+        <li class="process__step">
+          <span class="process__num">05</span>
+          <span class="process__text">Track responses, bookings, and next steps</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ── RESULTS ───────────────────────────────────────────────────────── -->
+  <section class="section" id="results">
+    <div class="container content">
+      <h2 class="section__heading">Results</h2>
+      <ul class="results">
+        <li class="result">35% response rate on podcast cold outreach</li>
+        <li class="result">Researched thousands of LinkedIn profiles for US recruitment campaigns</li>
+        <li class="result">Manages weekly outreach campaigns end-to-end with full tracking</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ── TOOLS ─────────────────────────────────────────────────────────── -->
+  <section class="section" id="tools">
+    <div class="container content">
+      <h2 class="section__heading">Tools</h2>
+      <ul class="tools">
+        <li>LinkedIn</li>
+        <li>Apollo</li>
+        <li>Google Sheets</li>
+        <li>Gmail</li>
+        <li>Podcast platforms</li>
+        <li>Event databases</li>
+        <li>CRM systems</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ── WHO I WORK WITH ───────────────────────────────────────────────── -->
+  <section class="section" id="who">
+    <div class="container content">
+      <h2 class="section__heading">Who I work with</h2>
+      <ul class="who">
+        <li class="who__item">Authors with a book to promote</li>
+        <li class="who__item">Coaches and consultants building authority</li>
+        <li class="who__item">Speakers seeking podcast and keynote opportunities</li>
+        <li class="who__item">B2B founders who need outbound but can't do it themselves</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ── CONTACT ───────────────────────────────────────────────────────── -->
+  <section class="section" id="contact">
+    <div class="container content">
+      <h2 class="section__heading">Need outreach help that actually follows up?</h2>
+      <p class="body-text contact__intro">
+        Send me a message — I'll respond within one business day.
+      </p>
+
+      <div class="contact__links">
+        <a href={`mailto:${site.email}`} class="contact__email">{site.email}</a>
+        <a href={site.social.linkedin} class="contact__linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+
+      <form
+        class="contact__form"
+        action="https://formspree.io/f/YOUR_FORM_ID"
+        method="POST"
+        novalidate
+      >
+        <div class="form-group">
+          <label class="form-label" for="name">Name</label>
+          <input class="form-input" type="text" id="name" name="name" autocomplete="name" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-input" type="email" id="email" name="email" autocomplete="email" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">Message</label>
+          <textarea class="form-input form-textarea" id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary">
+          Send message
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+      </form>
+    </div>
+  </section>
+
 </Base>
 
 <style>
-  /* ── Hero ──────────────────────────────────────────────────────── */
-  .hero {
-    padding-block: clamp(4rem, 10vw, 8rem);
-    border-bottom: 1px solid var(--border);
+  /* ── Shared section ───────────────────────────────────────────── */
+  .section {
+    padding-block: var(--section-pad);
   }
 
-  .hero__inner {
-    max-width: 780px;
-  }
-
-  .hero__label {
-    margin-bottom: var(--sp-6);
-  }
-
-  .hero__name {
-    font-family: var(--font-serif);
-    font-size: var(--text-5xl);
-    font-weight: var(--weight-light);
-    letter-spacing: -0.03em;
-    line-height: 1.05;
+  .section__heading {
+    font-size: var(--text-3xl);
     color: var(--text);
-    margin-bottom: var(--sp-4);
-
-    /* Staggered entrance */
-    animation: fadeUp 0.6s ease both;
+    margin-bottom: var(--sp-8);
   }
 
-  .hero__tagline {
-    font-family: var(--font-serif);
-    font-size: var(--text-2xl);
-    font-weight: var(--weight-light);
-    font-style: italic;
-    color: var(--text-muted);
-    letter-spacing: -0.01em;
-    margin-bottom: var(--sp-6);
-    animation: fadeUp 0.6s 0.1s ease both;
-  }
-
-  .hero__bio {
+  .body-text {
     font-size: var(--text-lg);
     line-height: var(--leading-loose);
     color: var(--text-muted);
-    max-width: 56ch;
+    margin-bottom: var(--sp-5);
+    max-width: 60ch;
+  }
+
+  /* ── Hero ─────────────────────────────────────────────────────── */
+  .hero {
+    padding-block: clamp(3.5rem, 10vw, 7rem);
+  }
+
+  .hero__label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: var(--sp-6);
+  }
+
+  .hero__headline {
+    font-size: var(--text-5xl);
+    color: var(--text);
+    margin-bottom: var(--sp-6);
+    max-width: 16ch;
+  }
+
+  .hero__accent {
+    color: var(--accent);
+  }
+
+  .hero__sub {
+    font-size: var(--text-lg);
+    line-height: var(--leading-loose);
+    color: var(--text-muted);
+    max-width: 52ch;
     margin-bottom: var(--sp-10);
-    animation: fadeUp 0.6s 0.2s ease both;
   }
 
   .hero__actions {
     display: flex;
-    gap: var(--sp-3);
+    align-items: center;
+    gap: var(--sp-6);
     flex-wrap: wrap;
-    animation: fadeUp 0.6s 0.3s ease both;
   }
 
-  /* ── Buttons ───────────────────────────────────────────────────── */
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--sp-2);
-    padding: 0.65em 1.4em;
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-    border-radius: var(--radius-md);
-    border: 1px solid transparent;
-    transition: background-color var(--ease-fast), color var(--ease-fast), border-color var(--ease-fast), box-shadow var(--ease-fast);
-    white-space: nowrap;
-  }
-
-  .btn--primary {
-    background: var(--text);
-    color: var(--bg);
-    border-color: var(--text);
-  }
-
-  .btn--primary:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-  }
-
-  .btn--ghost {
-    background: transparent;
-    color: var(--text-muted);
-    border-color: var(--border);
-  }
-
-  .btn--ghost:hover {
-    color: var(--text);
-    border-color: var(--border-strong);
-    background: var(--bg-hover);
-  }
-
-  /* ── Featured ──────────────────────────────────────────────────── */
-  .featured {
-    padding-block: var(--sp-20);
-  }
-
-  .featured__header {
+  /* ── Services ─────────────────────────────────────────────────── */
+  .services {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: var(--sp-8);
-    gap: var(--sp-4);
+    flex-direction: column;
+    gap: 0;
   }
 
-  .featured__header .section-label {
-    margin-bottom: 0;
+  .service {
+    padding-block: var(--sp-8);
+    border-bottom: 1px solid var(--border);
   }
 
-  .featured__all-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--sp-1);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
+  .service:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .service__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-light);
+    letter-spacing: -0.01em;
+    color: var(--text);
+    margin-bottom: var(--sp-3);
+  }
+
+  .service__desc {
+    font-size: var(--text-base);
+    line-height: var(--leading-loose);
     color: var(--text-muted);
-    transition: color var(--ease-fast), gap var(--ease-fast);
+    max-width: 56ch;
   }
 
-  .featured__all-link:hover {
+  /* ── Process ──────────────────────────────────────────────────── */
+  .process {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .process__step {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-5);
+    padding-block: var(--sp-6);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .process__step:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .process__num {
+    font-family: var(--font-serif);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-light);
     color: var(--accent);
-    gap: var(--sp-2);
+    min-width: 2rem;
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
   }
 
-  .featured__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  .process__text {
+    font-size: var(--text-lg);
+    color: var(--text);
+    line-height: var(--leading-snug);
+  }
+
+  /* ── Results ──────────────────────────────────────────────────── */
+  .results {
+    display: flex;
+    flex-direction: column;
     gap: var(--sp-6);
   }
 
-  /* ── Keyframes ─────────────────────────────────────────────────── */
-  @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .result {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-light);
+    letter-spacing: -0.01em;
+    color: var(--text);
+    line-height: var(--leading-snug);
+    padding-left: var(--sp-5);
+    border-left: 2px solid var(--accent);
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero__name,
-    .hero__tagline,
-    .hero__bio,
-    .hero__actions {
-      animation: none;
-    }
+  /* ── Tools ────────────────────────────────────────────────────── */
+  .tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3) var(--sp-6);
+  }
+
+  .tools li {
+    font-size: var(--text-base);
+    color: var(--text-muted);
+  }
+
+  .tools li::after {
+    content: '·';
+    margin-left: var(--sp-6);
+    color: var(--border);
+  }
+
+  .tools li:last-child::after {
+    content: '';
+  }
+
+  /* ── Who ──────────────────────────────────────────────────────── */
+  .who {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+
+  .who__item {
+    font-size: var(--text-lg);
+    color: var(--text);
+    padding-left: var(--sp-5);
+    position: relative;
+  }
+
+  .who__item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* ── Contact ──────────────────────────────────────────────────── */
+  .contact__intro {
+    margin-bottom: var(--sp-8);
+  }
+
+  .contact__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-6);
+    margin-bottom: var(--sp-12);
+    align-items: center;
+  }
+
+  .contact__email {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-light);
+    color: var(--accent);
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    padding-bottom: 2px;
+    transition: border-color var(--ease);
+  }
+
+  .contact__email:hover {
+    border-color: var(--accent);
+  }
+
+  .contact__linkedin {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    color: var(--text-muted);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    transition: color var(--ease), border-color var(--ease);
+  }
+
+  .contact__linkedin:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-5);
+    max-width: 480px;
   }
 </style>
